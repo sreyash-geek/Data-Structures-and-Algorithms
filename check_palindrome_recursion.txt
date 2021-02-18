@@ -1,0 +1,53 @@
+include<cstring>
+
+bool help(char input[],int start,int end)
+{  
+    
+    if(start>end)
+    {
+        return true;
+    }
+    
+    if(input[start]==input[end])
+    {
+        bool smallans=help(input,start+1,end-1);
+        if(smallans)
+        {
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+     
+}
+    
+bool checkPalindrome(char input[]) 
+{   
+    
+    int end=strlen(input);
+    if(end==0||end==1)
+       {
+           return true;
+       }
+    return help(input,0,end-1);
+    
+}
+
+
+#include <iostream>
+#include "solution.h"
+using namespace std;
+
+int main() {
+    char input[50];
+    cin >> input;
+    
+    if(checkPalindrome(input)) {
+        cout << "true" << endl;
+    }
+    else {
+        cout << "false" << endl;
+    }
+}

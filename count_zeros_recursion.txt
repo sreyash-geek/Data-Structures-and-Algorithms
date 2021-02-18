@@ -1,0 +1,28 @@
+int countZeros(int n) 
+{
+    
+     int count=0;
+     if(n==0)
+     {
+         return 0;
+     }
+     int smallans=countZeros(n/10);
+     if(n%10==0)
+     {
+          count=1;
+     }
+     return smallans+count;
+    
+}
+
+
+#include <iostream>
+#include "solution.h"
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    cout << countZeros(n) << endl;
+}
+
