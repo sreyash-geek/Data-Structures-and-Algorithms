@@ -1,0 +1,151 @@
+// Following is the node structure
+/**************
+class node{
+public:
+    int data;
+    node * next;
+    node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+***************/
+int compare(node* head,node* head2) 
+{ 
+    
+    node* temp1 = head; 
+    node* temp2 = head2; 
+  
+    while (temp1!=NULL && temp2!=NULL)
+    { 
+        
+        if (temp1->data==temp2->data)
+        { 
+            temp1 = temp1->next; 
+            temp2 = temp2->next; 
+        
+        } 
+        else
+        {
+            return 0; 
+        }
+        
+    } 
+  
+    if (temp1 == NULL && temp2 == NULL) 
+    {
+        return 1; 
+    }
+    
+    return 0; 
+    
+} 
+  
+node* reverseLL(node* head)
+{
+    
+    node* current=head;
+    node* prev=NULL;
+    node* nxt;
+    
+    while(current!=NULL)
+    {
+        
+        nxt=current->next;
+        current->next=prev;
+        prev=current;
+        current=nxt;
+        
+    }   
+    
+    return prev;
+    
+}
+        
+
+
+bool check_palindrome(node* head)
+{
+    node* slow=head;
+    node* fast=head->next;
+    
+    if(head!=NULL)
+    {
+       
+       while(fast!=NULL && fast->next!=NULL)
+         {
+        
+            slow=slow->next;
+            fast=fast->next->next;
+            
+         }  
+       
+    }   
+    
+    node* mid=slow;
+    
+    node* x=mid->next;
+    mid->next=NULL;
+    node* head2=x;
+    
+    node* half1=head;
+    node* half2=reverseLL(head2);
+    
+    
+    int smallans=compare(half1,half2);
+    
+    if(smallans)
+    {
+        return true;
+    }
+    
+    else
+    {
+        return false;
+    }
+    
+}
+
+
+
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+
+int main()
+{
+	int t;
+	cin >> t;
+
+	while (t--)
+	{
+		Node *head = takeinput();
+		bool ans = isPalindrome(head);
+
+		if (ans) cout << "true";
+		else cout << "false";
+
+		cout << endl;
+	}
+
+	return 0;
+}

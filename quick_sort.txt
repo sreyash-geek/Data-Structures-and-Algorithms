@@ -1,0 +1,85 @@
+int partition(int input[],int start,int end)
+{
+    int count=0;
+    int x=input[start];
+    for(int i=start+1;i<=end;i++)
+    {
+        if(input[i]<=x)
+        {
+            count++;
+        }
+    }
+    
+    int c=start+count;
+    int temp=input[start];
+    input[start]=input[c];
+    input[c]=temp;
+    
+    int i=start;
+    int j=end; 
+    
+    while(i<=c && j>=c)
+    {
+        if(input[i]<=x)
+        {
+            i++;
+        }
+        else if(input[j]>x)
+        {
+            j--;
+        }
+        else
+        {
+            int t=input[i];
+            input[i]=input[j];
+            input[j]=t;
+            i++;
+            j--;
+        }
+    }
+    
+    return c;
+    
+}
+void quickhelp(int input[],int start,int end)
+{
+    if(start>=end)
+    {
+        return;
+    }
+    int c=partition(input,start,end);
+    quickhelp(input,start,c-1);
+    quickhelp(input,c+1,end);
+}
+void quickSort(int input[], int size) 
+{
+    quickhelp(input,0,size-1);
+}
+
+
+
+#include<iostream>
+#include "Solution.h"
+using namespace std;
+
+
+int main(){
+    int n;
+    cin >> n;
+  
+    int *input = new int[n];
+    
+    for(int i = 0; i < n; i++) {
+        cin >> input[i];
+    }
+    
+    quickSort(input, n);
+    for(int i = 0; i < n; i++) {
+        cout << input[i] << " ";
+    }
+    
+    delete [] input;
+
+}
+
+
